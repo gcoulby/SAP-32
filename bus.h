@@ -4,11 +4,16 @@
 #include <stdint.h>
 #include <Arduino.h>
 
+#define lowNibble(w) ((uint8_t) ((w) & 0xf))
+#define highNibble(w) ((uint8_t) ((w) >> 4))
+
+enum ORDER { BYTE, LOW_ORDER, HIGH_ORDER };
+
 class Bus
 {
     public:
-        uint8_t GetData();
-        void SetData(uint8_t data);
+        uint8_t GetData(ORDER order = BYTE);
+        void SetData(uint8_t data, ORDER order = BYTE);
         Bus();
         void onRisingClock();
     private:

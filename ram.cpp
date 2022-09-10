@@ -47,13 +47,7 @@ void Ram::StoreAddressFromMux(){
         int b =  a << i;
         this->mar.DATA += b;
     }
-
-    int o = 0;
-    for (uint8_t i = 0; i < 8; i++)
-    {
-        bitWrite(o, i, this->memoryBank[this->mar.DATA][i]);
-    }
-    this->currentRam = o;
+    this->currentRam = this->memoryBank[this->mar.DATA];
 }
 
 void Ram::StoreMemoryFromMuxAtAddressFromMux(){
@@ -73,8 +67,8 @@ void Ram::StoreMemoryFromMuxAtAddressFromMux(){
         int a = this->ReadMux(data_channels[i]) > 10; 
         int b =  a << i;
         o += b;
-        this->memoryBank[this->mar.DATA][i] = a;
     }
+    this->memoryBank[this->mar.DATA] = o;
     this->currentRam = o;
 }
 
@@ -126,20 +120,12 @@ int Ram::ReadMux(int channel){
 
 void Ram::onRisingClock() {
     if(this->RamIn ==  1) {
-        for (uint8_t i = 0; i < 8; i++)
-        {
-            this->memoryBank[this->mar.DATA][i] = bitRead(this->bus.GetData(), i);
-        }
+        this->memoryBank[this->mar.DATA] = this->bus.GetData();
         this->currentRam = this->bus.GetData();
         this->RamIn = 0;
     }
     if(this->RamOut == 1) {
-        int o = 0;
-        for (uint8_t i = 0; i < 8; i++)
-        {
-            bitWrite(o, i, this->memoryBank[this->mar.DATA][i]);
-        }
-        this->bus.SetData(o);
+        this->bus.SetData(this->memoryBank[this->mar.DATA]);
         this->RamOut = 0;
     }
 

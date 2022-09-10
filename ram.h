@@ -9,7 +9,7 @@ enum PROGRAM_MODE { MAN, AUTO };
 class Ram
 {
     private:
-        uint8_t memoryBank[16][8] = {{0}};
+        uint8_t memoryBank[16] = {0};
         Bus &bus;
         Register &mar;
     public:
