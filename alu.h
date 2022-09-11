@@ -7,14 +7,14 @@
 class Alu
 {
     public:
-        Alu(Register &a, Register &b, Bus &bus);
+        Alu(AluRegister &a, AluRegister &b, Bus &bus);
         int result;
         bool sigOut;
         bool sub;
         void onRisingClock();
     private:
-        Register &a;
-        Register &b;
+        AluRegister &a;
+        AluRegister &b;
         Bus &bus;
         void sum();
 };

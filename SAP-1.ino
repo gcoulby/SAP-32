@@ -23,15 +23,13 @@ int programModeLedPin = 2;
 int LastClockState = 0;
 Bus* bus = new Bus();
 ProgramCounter* programCounter = new ProgramCounter(*bus);
-Register* a_reg = new Register(ALU_REG, *bus);
-Register* b_reg = new Register(ALU_REG, *bus);
-Register* ir = new Register(INS_REG, *bus);
-Register* mar = new Register(MAR_REG, *bus);
-Register* out_reg = new Register(OUT_REG, *bus);
+AluRegister* a_reg = new AluRegister(*bus);
+AluRegister* b_reg = new AluRegister(*bus);
+InstructionRegister* ir = new InstructionRegister(*bus);
+MemoryAddressRegister* mar = new MemoryAddressRegister(*bus);
+OutputRegister* out_reg = new OutputRegister(*bus);
 Alu* alu = new Alu(*a_reg, *b_reg, *bus);
 Ram* ram = new Ram(*bus, *mar);
-
-
 
 
 /*=================================*/
@@ -135,7 +133,7 @@ void debug() {
 void testLogic(){
   //load bus to A register
   if(programCounter->Count == 1){
-    a_reg->LATCH = 1; 
+    a_reg->InputEnable = 1; 
   }
   //update bus
   if(programCounter->Count == 2){
@@ -143,16 +141,16 @@ void testLogic(){
   }
   //load bus to B register
   if(programCounter->Count == 3){
-    b_reg->LATCH = 1; 
+    b_reg->InputEnable = 1; 
   }
   //update bus from A register
   if(programCounter->Count == 4){
-    a_reg->ENABLE = 1; 
+    a_reg->OutputEnable = 1; 
   }
 
   //update Instruction Register from bus
   if(programCounter->Count == 5){
-    ir->LATCH = 1; 
+    ir->InputEnable = 1; 
   }
 
   if(programCounter->Count == 6){
@@ -160,7 +158,7 @@ void testLogic(){
   }
   
   if(programCounter->Count == 7){
-    ir->ENABLE = 1; 
+    ir->OutputEnable = 1; 
   }
 
   if(programCounter->Count == 8){
@@ -168,7 +166,7 @@ void testLogic(){
   }
 
   if(programCounter->Count == 9){
-    out_reg->LATCH = 1;
+    out_reg->InputEnable = 1;
   }
 
   // if(programCounter->Count == 9){

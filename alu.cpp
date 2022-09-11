@@ -1,7 +1,7 @@
 #include "alu.h"
 #include "bus.h"
 
-Alu::Alu(Register &a, Register &b, Bus &bus): a(a), b(b), bus(bus) {
+Alu::Alu(AluRegister &a, AluRegister &b, Bus &bus): a(a), b(b), bus(bus) {
     this->sub = 0;
     this->sigOut = 0; 
 }
