@@ -50,7 +50,16 @@ class OutputRegister : public Register
         void onRisingClock();
 };
 
-
+class FlagRegister : public Register
+{
+    private:
+        bool carry;
+        bool zero;
+    public:
+        FlagRegister(Bus &bus);
+        void setFlags(bool carry, bool zero);
+        // void onRisingClock();
+};
 
 
 #endif

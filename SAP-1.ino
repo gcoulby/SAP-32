@@ -28,7 +28,8 @@ AluRegister* b_reg = new AluRegister(*bus);
 InstructionRegister* ir = new InstructionRegister(*bus);
 MemoryAddressRegister* mar = new MemoryAddressRegister(*bus);
 OutputRegister* out_reg = new OutputRegister(*bus);
-Alu* alu = new Alu(*a_reg, *b_reg, *bus);
+FlagRegister* flagRegister = new FlagRegister(*bus);
+Alu* alu = new Alu(*a_reg, *b_reg, *flagRegister, *bus);
 Ram* ram = new Ram(*bus, *mar);
 
 
@@ -122,6 +123,8 @@ void debug() {
   Serial.print(mar->DATA);
   Serial.print(", \"RAM\": ");
   Serial.print(ram->currentRam);
+  Serial.print(", \"FLAG\": ");
+  Serial.print(flagRegister->DATA);
   Serial.print(", \"OUT\": ");
   Serial.print(out_reg->DATA);
   Serial.println("}");
@@ -131,6 +134,8 @@ void debug() {
 }
 
 void testLogic(){
+  flagRegister->InputEnable = 1;
+
   //load bus to A register
   if(programCounter->Count == 1){
     a_reg->InputEnable = 1; 

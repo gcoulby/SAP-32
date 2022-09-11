@@ -62,6 +62,7 @@ void InstructionRegister::handleOutput(){
     }
 }
 
+
 /*=========================MemoryAddressRegister=========================*/
 
 MemoryAddressRegister::MemoryAddressRegister(Bus& bus) : Register(bus) {
@@ -79,3 +80,23 @@ OutputRegister::OutputRegister(Bus& bus) : Register(bus) {
 void OutputRegister::onRisingClock(){
     this->handleRisingClock();
 }
+
+/*=========================FlagRegister=========================*/
+FlagRegister::FlagRegister(Bus& bus) : Register(bus) {
+    bool zero;
+    bool carry;
+}
+
+
+
+void FlagRegister::setFlags(bool carry, bool zero) {
+    if(this->InputEnable == 1) {
+        this->DATA = 0;
+        this->DATA |= carry << 1;
+        this->DATA |= zero << 0;
+        // this->zero = this->alu.zero;
+        // this->carry = this->alu.carry;
+        this->InputEnable = 0;
+    }
+}
+
