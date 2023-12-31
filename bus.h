@@ -15,7 +15,7 @@ class Bus
         uint8_t GetData(ORDER order = BYTE);
         void SetData(uint8_t data, ORDER order = BYTE);
         Bus();
-        void onRisingClock();
+        void InitialiseCtrlBits();
     private:
         uint8_t DATA;
 

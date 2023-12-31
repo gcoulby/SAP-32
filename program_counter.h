@@ -6,12 +6,15 @@
 class ProgramCounter{
     public:
         uint8_t Count;
-        bool Jump;
         bool CounterEnable;
         bool CounterOut;
         ProgramCounter(Bus &bus);
-        void onRisingClock();
+        void Jump();
+        void handleInput();
+        void handleOutput();
         void increment();
+        void InitialiseCtrlBits();
+
     private:
         Bus &bus;
         uint8_t maxValue;

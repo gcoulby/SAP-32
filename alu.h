@@ -11,15 +11,17 @@ class Alu
         int result;
         bool sigOut;
         bool sub;
-        bool carry;
-        bool zero;
-        void onRisingClock();
+        // bool carry;
+        // bool zero;
+        void handleOutput();
+        void sum();
+        // void storeFlags();
+        void InitialiseCtrlBits();
     private:
         AluRegister &a;
         AluRegister &b;
         FlagRegister &f;
         Bus &bus;
-        void sum();
 };
 
 #endif

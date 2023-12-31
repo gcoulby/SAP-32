@@ -1,11 +1,11 @@
 #include "bus.h"
 
 Bus::Bus() {
-    this->DATA = 0b01101110;
+    this->DATA = 0;
 }
 
-void Bus::onRisingClock() {
-    //
+void Bus::InitialiseCtrlBits(){
+    this->DATA = 0;
 }
 
 uint8_t Bus::GetData(ORDER order) {
